@@ -1,0 +1,86 @@
+void dec_to_bin(int n) {
+    if (n >= 2)
+        dec_to_bin(n / 2);
+    printf ("a=%d\n", n % 2);
+}
+
+int power(int a, int f) {
+    if (f == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return a * power(a, f - 1);
+    }
+    }
+
+int routes(int x, int y)
+{
+    if (x == 0 && y == 0)
+        return 0;
+    else if (x == 0 ^ y == 0)
+        return 1;
+    else
+        return routes(x, y - 1) + routes(x - 1, y);
+
+
+}
+
+
+
+int main()
+
+{
+    int n = 0, a, f,c,b;
+        int rez;
+        printf ( "namber\n");
+        scanf_s("%d", &n);
+        printf("Bin =\n "); 
+    dec_to_bin(n);
+   
+    
+    
+    
+    
+    printf("3adanie 2\n");
+
+    printf("vedite x\n");
+    scanf_s("%d", &a);
+    printf("vedite n\n");
+    scanf_s("%d", &f);
+    printf("\n");
+
+    rez = power(a, f);
+    printf("voz = %d\n", rez);
+
+    c= rez % 2 ;
+    if (c == 1)
+    {
+        printf("ne4et  \n" );
+        c = rez * a - 1;
+        printf("4islo = %d\n", c );
+    }
+    else
+    {
+        printf("4et  \n");
+        c = a * a / 2;
+        printf("4islo = %d\n", c);
+    }
+
+
+    printf("3adanie 4\n");
+ 
+    const int sizeX = 5;
+    const int sizeY = 5;
+            for (size_t y = 0; y < sizeY; y++)
+            {
+                for (size_t x = 0; x < sizeX; x++)
+                {
+                    printf("%5d", routes(x, y));
+                }
+                printf("\n");
+            }
+        return 0;
+}
+
