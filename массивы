@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void swapInt(int* a, int* b)
+{
+	a = b;
+	b = a;
+}
+
+
+
+void sortShells(int* arr, int len)
+{
+	int i, j, step, temp;
+	for (step = len / 2; step > 0; step /= 2) {
+		
+		for (i = step; i < len; ++i) {
+			temp = arr[i];
+			for (j = i; j >= step; j -= step) {
+				{
+					if (temp < arr[j - step]) {
+						arr[j] = arr[j - step];
+					}
+					else {
+						break;
+					}
+				}
+				arr[j] = temp;
+			}
+			
+		}
+	}
+
+
+}
+
+
+
+void qs(int* arr, int first, int last)
+{
+	int i = first;
+	int j = last;
+	int x = arr[(first + last) / 2];
+	do
+	{
+		while (arr[i] < x) i++;
+		while (arr[j] > x)j--;
+		if (i <= j)
+		{
+			swapInt(&arr[i], &arr[j]);
+		}
+	} while (i <= j);
+	if (i < last) qs(arr, i, last);
+	if (first < j) qs(arr, first, j);
+
+}
+
+
+void bucketSort(int* arr, int  len) {
+	const int max = len;
+	const int b = 10;
+	int buck[b][max + 1];
+	for (int i = 0; i < b; i++) {
+		buck[i][max] = 0;
+
+	}
+
+	for (int dig = 1; dig < 1000000000; dig *= 10) {
+		for (int i = 0; i < max; i++) {
+
+			if (arr[i] % 2 == 0) {
+				int d = (arr[i] / dig) % b;
+				buck[d][buck[d][max]++] = arr[i];
+				arr[i] = -1;
+			}
+		}
+		int idx = 0;
+		for (int i = 0; i < b; i++) {
+			for (int j = 0; j < buck[i][max]; j++) {
+				while (arr[idx] != -1)idx++;
+				arr[idx] = buck[i][j];
+			}
+			buck[i][max] = 0;
+		}
+	}
+}
+
+
+
+	
+int main() 
+
+		{
+	
+			 int const SIZE = 12;
+			int arr[SIZE] = { 1, 3, 4, 7, 2, 11, 12,18 ,22, 7,44,54 };
+			if (SIZE >= 10)
+			{
+				sortShells(arr, SIZE);
+		}
+			else
+			{
+				qs(arr,0, SIZE);
+			}
+			for (int c = 0; c < SIZE; c++) 
+				printf("m[%d] = %d\n", c, arr[c]);
+		
+			bucketSort(arr, SIZE);
+
+}
