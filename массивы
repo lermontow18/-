@@ -106,5 +106,8 @@ int main()
 				printf("m[%d] = %d\n", c, arr[c]);
 		
 			bucketSort(arr, SIZE);
-
+for (int n = 0; n < SIZE; n++)
+{
+printf("m[%d] = %d\n", n, arr[n]);
+}
 }
