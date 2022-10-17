@@ -1,0 +1,56 @@
+#include <iostream>
+
+using namespace std;
+int hash(char* S)
+{
+    int i, r = 0;
+    while (*S)
+    {
+        r += (int)(*S);
+        S++;
+    }
+    cout << r << endl;
+    return r;
+}
+
+int main()
+{
+ 
+    int mas[5] = { 1, 2,5, 10, 50 }, x, temp, i = 4;
+    cin >> x;
+    while (x > 0)
+    {
+        if (x >= mas[i])
+        {
+            temp = 0;
+            while (x >= mas[i])
+            {
+                temp++;
+                x -= mas[i];
+            }
+            cout << "Monet " << mas[i] << " " << temp << " shtuk" << endl;
+        }
+        i--;
+    }
+   
+    
+    
+    
+    const char str = 5;
+    char mass[str];
+    for (size_t i = 0; i < str; i++)
+    {
+        cin >> mass[i];
+        
+    }
+    for (size_t i = 0; i < str; i++)
+    {
+        cout << mass[i]<< ",";
+        
+    }
+     hash(str);
+    return 0;
+   
+   
+
+}
