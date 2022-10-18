@@ -1,0 +1,132 @@
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <conio.h>
+
+
+
+using namespace std;
+
+string encode(long lSize, long* lKey, string fPath)
+{
+    long i, j;
+    string text, line, encstr;
+    ifstream ifs(fPath.c_str());
+    if (!ifs)
+        cout << "Ошибка открытия файла : " << fPath.c_str() << endl;
+    else
+    {
+        while (getline(ifs, line))
+            text += line;
+        ifs.close();
+        cout << "строка ввода : " << text.c_str() << endl;
+        for (i = 0; i < text.length(); i += lSize)
+        {
+            line = "";
+            for (j = 0; j < lSize; j++)
+                line += text[i + j];
+            for (j = 0; j < lSize; j++)
+                encstr += line[lKey[j]];
+        }
+    }
+    return encstr;
+}
+
+string decode(long lSize, long* lKey, string fPath)
+{
+    long i, j;
+    string text, line, decstr;
+    ifstream ifs(fPath.c_str());
+    if (!ifs)
+        cout << "Ошибка открытия файла : " << fPath.c_str() << endl;
+    else
+    {
+        while (getline(ifs, line))
+            text += line;
+        ifs.close();
+        cout << "строка ввода : " << text.c_str() << endl;
+        decstr = text;
+        for (i = 0; i < text.length(); i += lSize)
+        {
+            for (j = 0; j < lSize; j++)
+                decstr[i + lKey[j]] = text[i + j];
+        }
+    }
+    return decstr;
+}
+
+int main()
+{
+    setlocale(0, "RUS");
+    char chr;
+    long lKey[5] = { 0 };
+    long i, lSize = sizeof(lKey) / sizeof(lKey[0]);
+
+    bool bMenu = true;
+    string text;
+    while (bMenu)
+    {
+        cout << "***Меню***\n";
+        cout << "E - зашифровать\n";
+        cout << "D - зашифровать\n";
+        cout << (chr = _getch()) << endl;
+        switch (toupper(chr))
+        {
+        case 'E':
+            cout << "Введите ключ-блок : \n";
+            for (i = 0; i < lSize; i++)
+            {
+                cout << "KEY[" << i + 1 << "] = ";
+                cin >> lKey[i];
+            }
+            text = encode(lSize, lKey, "зашифрован.txt");
+            cout << "Введите текст : " << text.c_str() << endl;
+            break;
+        case 'D':
+            cout << "Введите ключ-блок : \n";
+            for (i = 0; i < lSize; i++)
+            {
+                cout << "ключ[" << i + 1 << "] = ";
+                cin >> lKey[i];
+            }
+            text = decode(lSize, lKey, "расшифровывать.txt");
+            cout << "расшифровывать текст : " << text.c_str() << endl;
+            break;
+        default:
+            cout << "ошибка\n";
+            break;
+        }
+        cout << "Нажмите Y, чтобы еще раз просмотреть меню\n";
+        cout << "Любой другой - ВЫХОД\n";
+        cout << (chr = _getch()) << endl;
+        if (toupper(chr) != 'Y')
+            bMenu = false;
+        system("cls");
+    }
+    system("pause");
+   
+    ////////////////////////////////////////////////////////////////
+
+    char buff[50] = { 0 };
+
+    cout << "закодированное сообщение" << endl;
+    cin >> buff;
+
+    for (int i = 0; i < strlen(buff); i++)
+        buff[i] += 3;
+    cout << buff << endl;
+
+    cout << "Decode: " << endl;
+    for (int i = 0; i < strlen(buff); i++)
+        buff[i] -= 3;
+    cout << buff << endl;
+
+    system("pause");
+    return 0;
+
+
+
+
+
+}
