@@ -1,0 +1,120 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+const int n = 12;
+const int m = 14;
+
+int iArr[n][m] = { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				   0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				   0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				   0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+				   1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+				   0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+				   0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+				   0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0,
+				   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+				   0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0,
+				   0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1,
+				   0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1 };
+
+bool used[n];
+
+int j = 0;
+int r = 0;
+int i = 0;
+int k = 0;
+
+
+
+
+void graf_stac(int mas[],int node)
+{
+stack <int> Stack;
+
+	int nodes[7]; 
+	for (int i = 0; i < n; i++) nodes[i] = 0; 
+	Stack.push(0); 
+	while (!Stack.empty())
+	{ 
+		int node = Stack.top(); 
+		Stack.pop();
+		if (nodes[node] == 2) continue;
+		nodes[node] = 2; 
+		for (int j = 0; j < n; j++)
+		{ 
+			if (mas[node] == 1 && nodes[j] != 2)
+			{ 
+				Stack.push(j); 
+				nodes[j] = 1; 
+			}
+		}
+		cout << node + 1; 
+	}
+}
+
+
+
+void dfs(int t) {
+
+	used[t] = true;
+
+	int p;
+
+	for (i = k; i < n; i++)
+	{
+		j = r;
+		if ((iArr[i][j] != 0) && (!used[i]))
+		{
+			used[i] = true;
+			p = i;
+
+			cout << i << " ";
+
+			for (j = 0; j < m; j++)
+			{
+				i == p;
+				if (iArr[i][j] != 0)
+				{
+					r = j;
+
+					for (k = 0; k < n; k++)
+					{
+						j == r;
+
+						if ((iArr[k][j] != 0) && (!used[k]))
+						{
+							dfs(i);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+int main()
+{
+
+	for (int i = 0; i < n; i++)
+	{
+		used[i] = false;
+		for (int j = 0; j < m; j++)
+			cout << " " << iArr[i][j];
+		cout << endl;
+	}
+
+
+	int from;
+	cout << "From >> ";
+	cin >> from;
+
+	cout << "Order: " << endl;
+
+	dfs(from);
+
+	cout << endl;
+ graf_stac(iArr[i], from);
+	return 0;
+}
